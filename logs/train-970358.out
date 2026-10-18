@@ -1,0 +1,7 @@
+job 970358 on xgpg2 at Sun Oct 18 16:12:14 +08 2026
+config: configs/cluster_test.py  extra args: 
+name, memory.total [MiB], driver_version
+NVIDIA A100-PCIE-40GB, 40960 MiB, 580.178.04
+/home/c/caioart/LLM_optimisation/train.py:238: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=(dtype == "float16"))
+[2026-10-18T16:16:31.841] error: *** JOB 970358 ON xgpg2 CANCELLED AT 2026-10-18T16:16:31 DUE to SIGNAL Terminated ***

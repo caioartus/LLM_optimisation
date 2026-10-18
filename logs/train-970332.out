@@ -1,0 +1,85 @@
+job 970332 on xgpd1 at Sun Oct 18 16:04:07 +08 2026
+config: configs/cluster_test.py  extra args: 
+name, memory.total [MiB], driver_version
+NVIDIA TITAN V, 12288 MiB, 580.178.04
+/home/c/caioart/LLM_optimisation/.venv/lib/python3.14/site-packages/torch/cuda/__init__.py:484: UserWarning: Found GPU0 NVIDIA TITAN V which is of compute capability (CC) 7.0.
+The following list shows the CCs this version of PyTorch was built for and the hardware CCs it supports:
+- 7.5 which supports hardware CC >=7.5,<8.0
+- 8.0 which supports hardware CC >=8.0,<9.0 except {8.7}
+- 8.6 which supports hardware CC >=8.6,<9.0 except {8.7}
+- 9.0 which supports hardware CC >=9.0,<10.0
+- 10.0 which supports hardware CC >=10.0,<11.0 except {10.1}
+- 12.0 which supports hardware CC >=12.0,<13.0
+Your installed torch==2.14.1+cu130 does not include kernels for this GPU. Reinstall the same version against a CUDA build that does, e.g.:
+  For CUDA 12.6 use pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cu126
+  _warn_unsupported_code(d, device_cc, code_ccs)
+/home/c/caioart/LLM_optimisation/train.py:238: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=(dtype == "float16"))
+Overriding config with configs/cluster_test.py:
+out_dir = "out/cluster_test"
+dataset = "fineweb_edu"
+device = "cuda"
+dtype = "bfloat16"
+compile = True
+wandb_log = True
+wandb_project = "llm_optimisation"
+
+# ~11M non-embedding + ~19M tied embedding params
+n_layer, n_head, n_embd = 6, 6, 384
+block_size = 1024
+dropout = 0.0
+
+# 32 x 1024 x 4 = ~131k tokens per step
+batch_size = 32
+gradient_accumulation_steps = 4
+max_iters = 4000
+lr_decay_iters = 4000
+warmup_iters = 100
+learning_rate = 1e-3
+min_lr = 1e-4  # 10x decay, as in Chinchilla
+eval_interval = 250
+eval_iters = 100
+
+tokens per iteration will be: 131,072
+Initializing a new model from scratch
+defaulting to vocab_size of GPT-2 to 50304 (50257 rounded up for efficiency)
+number of parameters: 29.94M
+num decayed parameter tensors: 26, with 30,326,784 parameters
+num non-decayed parameter tensors: 13, with 4,992 parameters
+using fused AdamW: True
+compiling the model... (takes a ~minute)
+Traceback (most recent call last):
+  File "/home/c/caioart/LLM_optimisation/train.py", line 295, in <module>
+    wandb.init(project=wandb_project, name=wandb_run_name, config=config)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/c/caioart/LLM_optimisation/.venv/lib/python3.14/site-packages/wandb/sdk/wandb_init.py", line 1464, in init
+    wi.maybe_login(init_settings)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/home/c/caioart/LLM_optimisation/.venv/lib/python3.14/site-packages/wandb/sdk/wandb_init.py", line 211, in maybe_login
+    wandb_login._login(
+    ~~~~~~~~~~~~~~~~~~^
+        host=run_settings.base_url,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        update_api_key=explicit_key is None,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/c/caioart/LLM_optimisation/.venv/lib/python3.14/site-packages/wandb/sdk/wandb_login.py", line 209, in _login
+    auth = _find_or_prompt_for_key(
+        settings,
+    ...<6 lines>...
+        prompt=prompt,
+    )
+  File "/home/c/caioart/LLM_optimisation/.venv/lib/python3.14/site-packages/wandb/sdk/wandb_login.py", line 291, in _find_or_prompt_for_key
+    auth = wbauth.authenticate_session(
+        host=host,
+    ...<7 lines>...
+        prompt=prompt,
+    )
+  File "/home/c/caioart/LLM_optimisation/.venv/lib/python3.14/site-packages/wandb/sdk/lib/wbauth/authenticate.py", line 141, in authenticate_session
+    raise UsageError(
+        "No API key configured. Use `wandb login` to log in."
+    ) from None
+wandb.errors.errors.UsageError: No API key configured. Use `wandb login` to log in.
+shutdown can only be called once

@@ -1,0 +1,6 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+val: 5,000 docs, 5,150,295 tokens, 23,931,922 bytes
+test: 5,000 docs, 5,209,205 tokens, 23,961,114 bytes
+train: 10,000 docs, 10,340,216 tokens
+/home/c/caioart/miniconda3/lib/python3.14/multiprocessing/resource_tracker.py:475: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-hkbl3vh7'}
+  warnings.warn(

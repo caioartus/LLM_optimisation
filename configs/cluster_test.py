@@ -3,7 +3,7 @@ dataset = "fineweb_edu"
 device = "cuda"
 dtype = "bfloat16"
 compile = True
-wandb_log = True
+wandb_log = False
 wandb_project = "llm_optimisation"
 
 # ~11M non-embedding + ~19M tied embedding params
