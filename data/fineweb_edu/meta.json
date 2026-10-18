@@ -1,0 +1,22 @@
+{
+  "tokenizer": "gpt2",
+  "dtype": "uint16",
+  "eot_token": 50256,
+  "val": {
+    "tokens": 5150295,
+    "bytes": 23931922,
+    "docs": 5000,
+    "tokens_per_byte": 0.21520607496547917
+  },
+  "test": {
+    "tokens": 5209205,
+    "bytes": 23961114,
+    "docs": 5000,
+    "tokens_per_byte": 0.217402454660497
+  },
+  "train": {
+    "tokens": 10340216,
+    "bytes": 48029075,
+    "docs": 10000
+  }
+}
